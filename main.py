@@ -8,11 +8,15 @@ def index():
 
 @app.route('/conversao_moeda', methods=['POST'])
 def converter_moeda():
-    valor = float(request.form['valor'])
+    try:
+        valor = float(request.form['valor'])
 
-    conversao = valor / 6.44
+        conversao = valor / 6.44
 
-    return render_template('index.html', conversao = conversao)
+        return render_template('index.html', conversao = conversao)
+    except Exception as e:
+        conversao = f'Ocorreu um erro inesperado {e}'
+        return render_template('index.html', conversao = conversao)
 
 if __name__ == '__main__':
     app.run(debug=True)
